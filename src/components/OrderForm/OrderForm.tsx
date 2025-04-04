@@ -16,7 +16,7 @@ const OrderForm = ({ onClose, editingOrder, refreshOrders }: OrderFormProps) => 
   const { handleCreateOrder, handleUpdateOrder, handleShowOneOrder, loading, error } = useOrder();
   const { handleShowCustomers } = useCustomer();
   const { handleShowProducts } = useProducts();
-  const { handleUpdateItems, handleDeleteItem } = useOrderItems(editingOrder?.id || 0);  
+  const { handleUpdateItems, handleDeleteItem } = useOrderItems();  
   
   const [formData, setFormData] = useState<IOrder>({
     id: editingOrder?.id || null,

@@ -107,7 +107,7 @@ export const Productpage = () => {
                 onClick={() => handleAddToCart(product)}
                 disabled={availableStock === 0}
               >
-                {addedProduct === productId ? "Added!" : availableStock > 0 ? "Add to Cart" : "Out of Stock"}
+                {addedProduct === productId ? cartMessage : availableStock > 0 ? "Add to Cart" : "Out of Stock"}
               </button>
             </div>
           );

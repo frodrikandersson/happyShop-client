@@ -2,7 +2,7 @@ import { useState } from "react";
 import { updateItems, deleteItems } from "../services/orderItemsService";
 import { IOrderItem } from "../models/IOrderItem";
 
-export const useOrderItems = (orderId: number) => {
+export const useOrderItems = () => {
   const [orderItems, setOrderItems] = useState<IOrderItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
