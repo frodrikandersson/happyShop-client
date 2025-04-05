@@ -1,0 +1,156 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .searchHeader {
+    margin-bottom: 1rem;
+  }
+  
+  .searchInput {
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .searchButton {
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+  }
+  
+  .searchModal {
+    position: fixed;
+    inset: 3rem;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    z-index: 50;
+    overflow-y: auto;
+    max-height: 80vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .resultTitle {
+    flex: 1;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .closeButton {
+    font-size: 1.25rem;
+    color: #f44336;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .resultCard {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .thumbnailSection {
+    margin-right: 1rem;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    flex-basis: 8rem;
+  }
+  
+  .thumbnail {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+  
+  .noImage {
+    width: 8rem;
+    height: 8rem;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .resultContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .resultHeading {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .resultSnippet {
+    margin-bottom: 0.5rem;
+  }
+  
+  .resultLink {
+    color: #1a73e8;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .pageButton {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .pageButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .pageInfo {
+    font-size: 1rem;
+    font-weight: 500;
+  }

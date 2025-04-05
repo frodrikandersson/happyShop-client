@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     padding: 15px 30px;
     background: #ffebdc;
     border-bottom: 4px solid #f8c8a0;

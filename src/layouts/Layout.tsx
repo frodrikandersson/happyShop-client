@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router";
 import classes from "./Layout.module.css";
-import { useCartContext } from "../contexts/CartContext"; 
+import { useCartContext } from "../contexts/CartContext";
 
 export function Layout() {
   const { getTotalItems } = useCartContext();

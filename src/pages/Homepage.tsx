@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 import classes from "./Pages.module.css";
 import { useProducts } from "../hooks/useProduct";
 import { IProducts } from "../models/IProducts";
+import GoogleSearch from "../components/GoogleSearch";
 
 export const Homepage = () => {
   const [countdown, setCountdown] = useState(3600);
@@ -44,6 +45,7 @@ export const Homepage = () => {
 
   return (
     <div className={classes.homepage}>
+      <GoogleSearch />
       <section className={classes.hero}>
         <h1>Welcome to HappyShop!</h1>
         <p>Find everything you need at unbeatable prices!*</p>

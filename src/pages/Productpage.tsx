@@ -66,7 +66,7 @@ export const Productpage = () => {
       <div className={classes.productGrid}>
         {validProducts.map((product) => {
           const productId = product.id!; 
-          const availableStock = adjustedStock[productId] ?? product.stock;
+          const availableStock = adjustedStock[productId] ?? "...";
           return (
             <div key={productId} className={classes.productCard}>
               <img className={classes.productImg} src={product.image} alt={product.name} />
