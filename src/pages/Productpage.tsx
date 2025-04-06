@@ -3,6 +3,7 @@ import { useProducts } from "../hooks/useProduct";
 import { useCartContext } from "../contexts/CartContext"; 
 import classes from "./Pages.module.css";
 import { useOrder } from "../hooks/useOrder";
+import ProductInfo from "../components/ProductInfo";
 
 export const Productpage = () => {
   const { products } = useProducts();
@@ -12,10 +13,15 @@ export const Productpage = () => {
   const [cartMessage, setCartMessage] = useState<string | null>(null);
   const [addedProduct, setAddedProduct] = useState<number | null>(null);
   const [adjustedStock, setAdjustedStock] = useState<{ [key: number]: number }>({});
+  // const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchOrdersAndAdjustStock = async () => {
       const orders = await handleShowOrders();
+      // if (!orders || !Array.isArray(orders)) {
+      //   console.error("Orders not returned as expected:", orders);
+      //   return; // or handle it differently
+      // }
       const stockReduction: { [key: number]: number } = {};
       
       for (const order of orders) {
@@ -65,10 +71,14 @@ export const Productpage = () => {
       <h1>Our Products</h1>
       <div className={classes.productGrid}>
         {validProducts.map((product) => {
-          const productId = product.id!; 
+          const productId = product.id; 
           const availableStock = adjustedStock[productId] ?? "...";
           return (
-            <div key={productId} className={classes.productCard}>
+            <div
+              key={productId}
+              className={classes.productCard}
+              // onClick={() => setSelectedProductId(productId)}
+            >
               <img className={classes.productImg} src={product.image} alt={product.name} />
               <h2>{product.name}</h2>
               <p>{product.description}</p>

@@ -36,6 +36,18 @@ export const useProducts = () => {
     }
   };
 
+  // const handleGetOneProduct = async (id: number) => {
+  //   setLoading(true);
+  //   try {
+  //     const product = await getOneProduct(id);
+  //     return product; 
+  //   } catch (err) {
+  //     setError('Error fetching product by ID');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleCreateProduct = async (product: Omit<IProducts, 'id' | 'created_at'>) => {
     setLoading(true);
     try {
@@ -77,8 +89,9 @@ export const useProducts = () => {
     loading,
     error,
     handleCreateProduct,
+    // handleGetOneProduct,
     handleUpdateProduct,
     handleDeleteProduct,
     handleShowProducts, 
   };
-};
+}
