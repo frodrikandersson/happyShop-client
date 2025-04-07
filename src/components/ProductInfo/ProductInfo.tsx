@@ -23,7 +23,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
 
         fetchProduct();
         console.log("useEffect triggered for ProductInfo component");
-    }, [productID, handleGetOneProduct]);
+    }, []);
 
     const handleClose = () => {
         setProduct(null);
