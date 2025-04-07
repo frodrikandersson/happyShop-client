@@ -7,12 +7,13 @@ interface ProductInfoProps {
     productID: number;
 }
 
-const { handleGetOneProduct } = useProducts();
+
 
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     const [product, setProduct] = useState<IProducts | null>(null);
     const [showProduct, setShowProduct] = useState(false);
+    const { handleGetOneProduct } = useProducts();
 
     const GetProduct = async () => {
         const newProduct = await handleGetOneProduct(productID);
