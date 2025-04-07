@@ -123,7 +123,7 @@ export const Productpage = () => {
           );
         })}
         {selectedProductId && (
-          <ProductInfo productID={selectedProductId} />
+          <ProductInfo key={selectedProductId} productID={selectedProductId} />
         )}
       </div>
     </div>
