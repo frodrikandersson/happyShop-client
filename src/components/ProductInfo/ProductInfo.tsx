@@ -19,15 +19,14 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
         setShowProduct(true);
         console.log("GetProduct called", newProduct);
     }
-
-    useEffect(() => {
-        console.log("UseEffect triggered for ProductInfo component");
-        if (!product) {
+    if (!product) {
+        useEffect(() => {
+            console.log("UseEffect triggered for ProductInfo component");
             GetProduct();
-            console.log("If statement triggered in useEffect", product);
-        }
-        return;
-    });
+            return;
+        
+        });
+    };
 
     const handleClose = () => {
         setProduct(null);
