@@ -7,9 +7,6 @@ interface ProductInfoProps {
     productID: number;
 }
 
-
-
-
 const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     const [product, setProduct] = useState<IProducts | null>(null);
     const [showProduct, setShowProduct] = useState(false);
@@ -28,6 +25,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     });
 
     const handleClose = () => {
+        setProduct(null);
         setShowProduct(false);
     };
 
