@@ -12,21 +12,18 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     const [showProduct, setShowProduct] = useState(false);
     const { handleGetOneProduct } = useProducts();
 
-    const GetProduct = async () => {
-        const newProduct = await handleGetOneProduct(productID);
-        if (!newProduct) return;
-        setProduct(newProduct);
-        setShowProduct(true);
-        console.log("GetProduct called", newProduct);
-    }
-    if (!product) {
-        useEffect(() => {
-            console.log("UseEffect triggered for ProductInfo component");
-            GetProduct();
-            return;
-        
-        });
-    };
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const newProduct = await handleGetOneProduct(productID);
+            if (!newProduct) return;
+            setProduct(newProduct);
+            setShowProduct(true);
+            console.log("GetProduct called", newProduct);
+        };
+
+        fetchProduct();
+        console.log("useEffect triggered for ProductInfo component");
+    }, [productID, handleGetOneProduct]);
 
     const handleClose = () => {
         setProduct(null);
