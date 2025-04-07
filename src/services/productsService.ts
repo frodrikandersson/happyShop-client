@@ -11,15 +11,15 @@ export async function getProducts() {
     }
 }
 
-// export async function getOneProduct( id:number ): Promise<IProducts> {
-//     try {
-//         const response = await api.get(`/products/${id}`);
-//         return response.data;
-//     } catch (error) {
-//         console.error("Failed to get the specific product data.");
-//         throw new Error("Product data fetch failed.");
-//     }
-// }
+export async function getOneProduct( id:number ): Promise<IProducts> {
+    try {
+        const response = await api.get(`/products/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Failed to get the specific product data.");
+        throw new Error("Product data fetch failed.");
+    }
+}
 
 export async function createProduct(productData: Omit<IProducts, "id" | "created_at">) {
     try {

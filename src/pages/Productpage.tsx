@@ -13,15 +13,15 @@ export const Productpage = () => {
   const [cartMessage, setCartMessage] = useState<string | null>(null);
   const [addedProduct, setAddedProduct] = useState<number | null>(null);
   const [adjustedStock, setAdjustedStock] = useState<{ [key: number]: number }>({});
-  // const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchOrdersAndAdjustStock = async () => {
       const orders = await handleShowOrders();
-      // if (!orders || !Array.isArray(orders)) {
-      //   console.error("Orders not returned as expected:", orders);
-      //   return; // or handle it differently
-      // }
+      if (!orders || !Array.isArray(orders)) {
+        console.error("Orders not returned as expected:", orders);
+        return; 
+      }
       const stockReduction: { [key: number]: number } = {};
       
       for (const order of orders) {
@@ -77,7 +77,7 @@ export const Productpage = () => {
             <div
               key={productId}
               className={classes.productCard}
-              // onClick={() => setSelectedProductId(productId)}
+              onClick={() => setSelectedProductId(productId)}
             >
               <img className={classes.productImg} src={product.image} alt={product.name} />
               <h2>{product.name}</h2>
@@ -122,6 +122,9 @@ export const Productpage = () => {
             </div>
           );
         })}
+        {selectedProductId && (
+          <ProductInfo productID={selectedProductId} />
+        )}
       </div>
     </div>
   );

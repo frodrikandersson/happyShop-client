@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProducts, createProduct, updateProduct, deleteProduct } from '../services/productsService';
+import { getProducts, createProduct, updateProduct, deleteProduct, getOneProduct } from '../services/productsService';
 import { IProducts } from '../models/IProducts';
 
 export const useProducts = () => {
@@ -36,17 +36,17 @@ export const useProducts = () => {
     }
   };
 
-  // const handleGetOneProduct = async (id: number) => {
-  //   setLoading(true);
-  //   try {
-  //     const product = await getOneProduct(id);
-  //     return product; 
-  //   } catch (err) {
-  //     setError('Error fetching product by ID');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleGetOneProduct = async (id: number) => {
+    setLoading(true);
+    try {
+      const product = await getOneProduct(id);
+      return product; 
+    } catch (err) {
+      setError('Error fetching product by ID');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCreateProduct = async (product: Omit<IProducts, 'id' | 'created_at'>) => {
     setLoading(true);
@@ -89,7 +89,7 @@ export const useProducts = () => {
     loading,
     error,
     handleCreateProduct,
-    // handleGetOneProduct,
+    handleGetOneProduct,
     handleUpdateProduct,
     handleDeleteProduct,
     handleShowProducts, 
