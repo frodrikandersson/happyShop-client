@@ -32,20 +32,24 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     };
 
     return (
-        <div className={classes.productInfoWrapper}>
-            <button onClick={handleClose} className={classes.closeButton}>X</button>
-            <h1 className={classes.productInfoTitle}>Product Information</h1>
-            {product && showProduct && (
-                <div className={classes.productInfo}>
-                    <h2>{product.name}</h2>
-                    <img src={product.image} alt={product.name} className={classes.productImage} />
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price}</p>
-                    <p>Stock: {product.stock}</p>
-                    <p>Category: {product.category}</p>
+        <>
+            {showProduct && (
+                <div className={classes.productInfoWrapper}>
+                    <button onClick={handleClose} className={classes.closeButton}>X</button>
+                    <h1 className={classes.productInfoTitle}>Product Information</h1>
+                    {product && showProduct && (
+                        <div className={classes.productInfo}>
+                            <h2>{product.name}</h2>
+                            <img src={product.image} alt={product.name} className={classes.productImage} />
+                            <p>{product.description}</p>
+                            <p>Price: ${product.price}</p>
+                            <p>Stock: {product.stock}</p>
+                            <p>Category: {product.category}</p>
+                        </div>
+                    )}
                 </div>
             )}
-        </div>
+        </>
     );
 }
 

@@ -123,7 +123,14 @@ export const Productpage = () => {
           );
         })}
         {selectedProductId && (
-          <ProductInfo key={selectedProductId} productID={selectedProductId} />
+          <div className={classes.modalOverlay} onClick={() => setSelectedProductId(null)}>
+            <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
+              <ProductInfo
+                key={selectedProductId}
+                productID={selectedProductId}
+              />
+            </div>
+          </div>
         )}
       </div>
     </div>
