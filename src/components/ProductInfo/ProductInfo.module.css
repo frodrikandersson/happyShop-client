@@ -7,3 +7,16 @@
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+.productInfo{
+
+
+    img{
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin: 1rem auto;
+    }
+}
