@@ -1,133 +1,47 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useProducts } from "../hooks/useProduct";
-import { useCartContext } from "../contexts/CartContext"; 
 import classes from "./Pages.module.css";
-import { useOrder } from "../hooks/useOrder";
 import ProductInfo from "../components/ProductInfo";
+import AddToCartButtons from "../components/AddToCartButtons";
+import GoogleSearch from "../components/GoogleSearch";
+
+
 
 export const Productpage = () => {
   const { products } = useProducts();
-  const { addToCart } = useCartContext(); 
-  const { handleShowOrders, handleShowOneOrder } = useOrder(); 
-  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
-  const [cartMessage, setCartMessage] = useState<string | null>(null);
-  const [addedProduct, setAddedProduct] = useState<number | null>(null);
-  const [adjustedStock, setAdjustedStock] = useState<{ [key: number]: number }>({});
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchOrdersAndAdjustStock = async () => {
-      const orders = await handleShowOrders();
-      if (!orders || !Array.isArray(orders)) {
-        console.error("Orders not returned as expected:", orders);
-        return; 
-      }
-      const stockReduction: { [key: number]: number } = {};
-      
-      for (const order of orders) {
-        const orderDetails = await handleShowOneOrder(order.id);
-        orderDetails?.order_items.forEach((item: any) => {
-          if (stockReduction[item.product_id]) {
-            stockReduction[item.product_id] += item.quantity;
-          } else {
-            stockReduction[item.product_id] = item.quantity;
-          }
-        });
-      }
-      
-      const updatedStock: { [key: number]: number } = {};
-      products.forEach((product) => {
-        updatedStock[product.id!] = Math.max(0, product.stock - (stockReduction[product.id!] || 0));
-      });
-      
-      setAdjustedStock(updatedStock);
-    };
-
-    fetchOrdersAndAdjustStock();
-  }, [products, handleShowOrders, handleShowOneOrder]);
-
-  const handleQuantityChange = (id: number, value: number, maxStock: number) => {
-    if (value < 1) value = 1;
-    if (value > maxStock) value = maxStock;
-    setQuantities((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleAddToCart = (product: any) => {
-    const quantity = quantities[product.id!] || 1;
-    addToCart(product, quantity);
-    setAddedProduct(product.id!);
-
-    setCartMessage(`Added ${quantity} × ${product.name} to cart!`);
-    setTimeout(() => {
-      setCartMessage(null);
-      setAddedProduct(null);
-    }, 2000);
-  };
-
   const validProducts = products.filter((product) => product.id !== null);
-
+  
   return (
     <div className={classes.productPage}>
+      <GoogleSearch />
       <h1>Our Products</h1>
       <div className={classes.productGrid}>
-        {validProducts.map((product) => {
-          const productId = product.id; 
-          const availableStock = adjustedStock[productId] ?? "...";
-          return (
-            <div
-              key={productId}
-              className={classes.productCard}
-              onClick={() => setSelectedProductId(productId)}
-            >
-              <img className={classes.productImg} src={product.image} alt={product.name} />
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
-              <p className={classes.price}>${product.price.toFixed(2)}</p>
-              <p className={classes.stock}>Stock: {availableStock}</p>
+      {validProducts.map((product) => {
+        const productId = product.id;
+        return (
+          <div
+            key={productId}
+            className={classes.productCard}
+            onClick={() => setSelectedProductId(productId)}
+          >
+            <img className={classes.productImg} src={product.image} alt={product.name} />
+            <h2>{product.name}</h2>
+            <p className={classes.productCardDescription}>{product.description}</p>
+            <p className={classes.price}>${product.price.toFixed(2)}</p>
+            <p className={classes.stock}>Stock: {product.adjustedStock}</p>
 
-              <div className={classes.quantityControl}>
-                <button
-                  onClick={() =>
-                    handleQuantityChange(productId, (quantities[productId] || 1) - 1, availableStock)
-                  }
-                  disabled={(quantities[productId] || 1) <= 1}
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  name={productId.toString()}
-                  value={quantities[productId] || 1}
-                  onChange={(e) =>
-                    handleQuantityChange(productId, parseInt(e.target.value) || 1, availableStock)
-                  }
-                />
-                <button
-                  onClick={() =>
-                    handleQuantityChange(productId, (quantities[productId] || 1) + 1, availableStock)
-                  }
-                  disabled={(quantities[productId] || 1) >= availableStock}
-                >
-                  +
-                </button>
-              </div>
-
-              <button
-                className={classes.addToCart}
-                onClick={() => handleAddToCart(product)}
-                disabled={availableStock === 0}
-              >
-                {addedProduct === productId ? cartMessage : availableStock > 0 ? "Add to Cart" : "Out of Stock"}
-              </button>
-            </div>
-          );
-        })}
-        {selectedProductId && (
+            <AddToCartButtons product={product} />
+          </div>
+        );
+      })}
+        {selectedProductId != null && (
           <div className={classes.modalOverlay} onClick={() => setSelectedProductId(null)}>
             <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
               <ProductInfo
                 key={selectedProductId}
                 productID={selectedProductId}
+                onClose={() => setSelectedProductId(null)}
               />
             </div>
           </div>

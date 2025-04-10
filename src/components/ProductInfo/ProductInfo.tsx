@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useProducts } from "../../hooks/useProduct";
 import classes from "./ProductInfo.module.css";
 import { IProducts } from "../../models/IProducts";
+import AddToCartButtons from "../AddToCartButtons";
 
 interface ProductInfoProps {
     productID: number;
+    onClose: () => void;
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ productID, onClose }) => {
     const [product, setProduct] = useState<IProducts | null>(null);
     const [showProduct, setShowProduct] = useState(false);
     const { handleGetOneProduct } = useProducts();
@@ -28,6 +30,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
     const handleClose = () => {
         setProduct(null);
         setShowProduct(false);
+        onClose();
         console.log("ProductInfo closed");
     };
 
@@ -43,10 +46,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ productID }) => {
                             <img src={product.image} alt={product.name} className={classes.productImage} />
                             <p>{product.description}</p>
                             <p>Price: ${product.price}</p>
-                            <p>Stock: {product.stock}</p>
+                            <p>Stock: {product.adjustedStock}</p>
                             <p>Category: {product.category}</p>
                         </div>
                     )}
+                    { product && <AddToCartButtons product={product} /> }
                 </div>
             )}
         </>

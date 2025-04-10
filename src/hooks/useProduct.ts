@@ -48,7 +48,7 @@ export const useProducts = () => {
     }
   };
 
-  const handleCreateProduct = async (product: Omit<IProducts, 'id' | 'created_at'>) => {
+  const handleCreateProduct = async (product: Omit<IProducts, 'id' | 'created_at' | 'adjustedStock'>) => {
     setLoading(true);
     try {
       const newProduct = await createProduct(product);
@@ -60,7 +60,7 @@ export const useProducts = () => {
     }
   };
 
-  const handleUpdateProduct = async (productId: number, product: Omit<IProducts, 'id' | 'created_at'>) => {
+  const handleUpdateProduct = async (productId: number, product: Omit<IProducts, 'id' | 'created_at' | 'adjustedStock'>) => {
     setLoading(true);
     try {
       const updatedProduct = await updateProduct({ id: productId, productData: product });

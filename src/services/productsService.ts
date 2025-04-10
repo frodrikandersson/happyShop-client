@@ -21,7 +21,7 @@ export async function getOneProduct( id:number ): Promise<IProducts> {
     }
 }
 
-export async function createProduct(productData: Omit<IProducts, "id" | "created_at">) {
+export async function createProduct(productData: Omit<IProducts, "id" | "created_at" | "adjustedStock">) {
     try {
         const response = await api.post("/products", productData);
         return response.data;
@@ -31,7 +31,7 @@ export async function createProduct(productData: Omit<IProducts, "id" | "created
     }
 }
 
-export async function updateProduct({ id, productData }: { id: number, productData: Omit<IProducts, "id" | "created_at"> }) {
+export async function updateProduct({ id, productData }: { id: number, productData: Omit<IProducts, "id" | "created_at" | "adjustedStock"> }) {
     try {
         const response = await api.patch(`/products/${id}`, productData);
         return response.data;

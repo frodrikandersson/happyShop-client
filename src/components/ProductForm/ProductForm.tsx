@@ -10,7 +10,7 @@ interface ProductFormProps {
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ existingProduct, onClose, onProductUpdated }) => {
-  const [product, setProduct] = useState<Omit<IProducts, "id" | "created_at">>({
+  const [product, setProduct] = useState<Omit<IProducts, "id" | "created_at" | "adjustedStock">>({
     name: "",
     description: "",
     price: 0,

@@ -4,6 +4,7 @@ import classes from "./Pages.module.css";
 import { useProducts } from "../hooks/useProduct";
 import { IProducts } from "../models/IProducts";
 import GoogleSearch from "../components/GoogleSearch";
+import AddToCartButtons from "../components/AddToCartButtons";
 
 export const Homepage = () => {
   const [countdown, setCountdown] = useState(3600);
@@ -64,8 +65,9 @@ export const Homepage = () => {
                 <p className={classes.discountPrice}>
                   <span>20% Off: </span> {deal.price.toFixed(2)} kr
                 </p>
+                <p>Left in stock: {deal.adjustedStock}</p>
                 <p className={classes.timer}>{formatTime(countdown)}</p>
-                <NavLink to="/productpage" className={classes.dealButton}>Shop Now</NavLink>
+                { deal && <AddToCartButtons product={deal} /> }
               </div>
             ))
           ) : (

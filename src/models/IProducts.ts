@@ -7,4 +7,5 @@ export interface IProducts{
     category: string
     image: string
     created_at: string
+    adjustedStock: number 
   }

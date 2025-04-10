@@ -38,18 +38,18 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 900px;
   text-align: center;
   margin-bottom: 40px;
-}
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #ff4f5a;
-}
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
 
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #333;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #ff4f5a;
+  }
 }
 
 /* Categories Section */
@@ -58,10 +58,10 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-}
 
-.categories h2 {
-  padding-top: 10px;
+  h2 {
+    padding-top: 10px;
+  }
 }
 
 /* Shop Now Button */
@@ -85,13 +85,13 @@ h1, h2, h3, h4, h5, h6 {
 .deals {
   margin-top: 40px;
   width: 100%;
-}
 
-.deals h2 {
-  font-size: 2rem;
-  color: #ff4f5a;
-  text-align: center;
-  margin-bottom: 20px;
+  h2 {
+    font-size: 2rem;
+    color: #ff4f5a;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 }
 
 /* Deal List & Category List */
@@ -107,14 +107,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Deal Items and Category Cards */
-.dealItem,
-.categoryCard {
+.dealItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: white;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: 0.3s;
+  width: 300px;
+  height: 470px;
+}
+
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: 0.3s;
+  width: 200px;
 }
 
 .dealItem img,
@@ -180,18 +198,30 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
+
+  img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.productCardDescription {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(1em * 2 * 1.2);
+  line-height: 1.2;
 }
 
 .productCard:hover {
   background: #ffb6b9;
   transform: scale(1.02);
-}
-
-.productCard img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
 }
 
 .productInfo {
@@ -208,38 +238,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem;
   color: #ff4f5a;
   margin-top: 5px;
-}
-
-.quantityControl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.quantityControl button {
-  background: #ff4f5a;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.2s;
-}
-
-.quantityControl button:hover {
-  background: #d93c47;
-}
-
-.quantityControl input {
-  width: 50px;
-  text-align: center;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
 }
 
 .quantityButton {
@@ -264,37 +262,6 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px;
-}
-
-.addToCart {
-  background: #ff4f5a;
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.2s ease-in-out;
-}
-
-.addToCart:active {
-  background: #d43f4a;
-}
-
-.addToCartButton {
-  margin-top: 15px;
-  background: #ff4f5a;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.2s;
-}
-
-.addToCartButton:hover {
-  background: #d93c47;
 }
 
 .modalOverlay {
