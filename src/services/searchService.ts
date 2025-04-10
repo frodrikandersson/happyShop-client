@@ -3,8 +3,13 @@ import { IGoogleSearch } from "../models/IGoogleSearch";
 
 export async function googleSearch(query: string, start: number = 1) {
     try {
-      const url = `https://www.googleapis.com/customsearch/v1?q=${query}&start=${start}&key=${process.env.VITE_GOOGLE_API_SECRET}&cx=${process.env.VITE_GOOGLE_SEARCH_ENGINE_ID}`;
-      const response = await axios.get(url)
+      const response = await axios.get("https://www.googleapis.com/customsearch/v1", {
+        params: {
+          q:  query, start,
+          key: process.env.VITE_GOOGLE_API_SECRET,
+          cx: process.env.VITE_GOOGLE_SEARCH_ENGINE_ID,
+        }
+      });
       console.log("Google search service fetched successfully: ", response);
       return response.data as IGoogleSearch;
     } catch (error) {
