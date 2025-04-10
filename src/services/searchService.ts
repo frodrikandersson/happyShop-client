@@ -6,8 +6,8 @@ export async function googleSearch(query: string, start: number = 1) {
       const response = await axios.get("https://www.googleapis.com/customsearch/v1", {
         params: {
           q:  query, start,
-          key: process.env.GOOGLE_API_SECRET,
-          cx: process.env.GOOGLE_SEARCH_ENGINE_ID,
+          key: process.env.VITE_GOOGLE_API_SECRET,
+          cx: process.env.VITE_GOOGLE_SEARCH_ENGINE_ID,
         }
       });
       console.log("Google search service fetched successfully: ", response);
