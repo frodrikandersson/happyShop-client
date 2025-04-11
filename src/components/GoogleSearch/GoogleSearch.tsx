@@ -58,7 +58,7 @@ const GoogleSearch = () => {
     }
 
     const cleanImageUrl = (url: string) => url.split('?')[0];
-
+    console.log('selectedProductId:', selectedProductId)
     return (
         <div className={classes.wrapper}>
             <h2 className={classes.title}>Search product list</h2>
@@ -158,7 +158,6 @@ const GoogleSearch = () => {
                     </div>
                 </>
             )}
-
             {selectedProductId != null && (
                 <div className={classes.modalOverlayProduct} onClick={() => setSelectedProductId(null)}>
                     <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
