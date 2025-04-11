@@ -115,7 +115,12 @@ const GoogleSearch = () => {
                                 <div 
                                     key={index} 
                                     className={classes.resultCard}
-                                    onClick={() => isMatch && setSelectedProductId(matchedProduct!.id!)}
+                                    onClick={() => {
+                                        if (isMatch) {
+                                            setIsSearching(false);
+                                            setSelectedProductId(matchedProduct!.id!); 
+                                        }
+                                    }}
                                     style={{ cursor: isMatch ? 'pointer' : 'not-allowed' }}
                                 >
                                     <section className={classes.thumbnailSection}>
@@ -154,7 +159,7 @@ const GoogleSearch = () => {
                 </>
             )}
 
-            {!isSearching && selectedProductId != null && (
+            {selectedProductId != null && (
                 <div className={classes.modalOverlayProduct} onClick={() => setSelectedProductId(null)}>
                     <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
                     <ProductInfo
