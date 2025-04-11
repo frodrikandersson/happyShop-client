@@ -22,6 +22,7 @@ const GoogleSearch = () => {
 
     useEffect(() => {
         handleShowProducts().then(setProductList).catch(console.error);
+        console.log(productList);
     }, []);
 
     const handleSearch = async (e?: FormEvent, newStartIndex: number = 1) => {
