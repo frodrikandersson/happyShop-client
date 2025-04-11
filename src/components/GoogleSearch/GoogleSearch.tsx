@@ -117,6 +117,7 @@ const GoogleSearch = () => {
                                     className={classes.resultCard}
                                     onClick={() => {
                                         if (isMatch) {
+                                            setItems(null);
                                             setIsSearching(false);
                                             setSelectedProductId(matchedProduct!.id!); 
                                         }
