@@ -78,8 +78,8 @@ const GoogleSearch = () => {
 
             {isSearching && items && (
                 <>
-                    <div className={classes.modalOverlay} onClick={closeResults}></div>
-                    <div className={classes.searchModal}>
+                    <div className={classes.modalOverlaySearch} onClick={closeResults}></div>
+                    <div className={classes.searchModalSearch}>
                         <div className={classes.modalHeader}>
                             <h2 className={classes.resultTitle}>Results</h2>
                             <button onClick={closeResults} className={classes.closeButton}>✕</button>
@@ -155,8 +155,8 @@ const GoogleSearch = () => {
             )}
 
             {!isSearching && selectedProductId != null && (
-                <div className={classes.modalOverlay} onClick={() => setSelectedProductId(null)}>
-                    <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
+                <div className={classes.modalOverlayProduct} onClick={() => setSelectedProductId(null)}>
+                    <div className={classes.modalContentProduct} onClick={(e) => e.stopPropagation()}>
                     <ProductInfo
                         key={selectedProductId}
                         productID={selectedProductId}
