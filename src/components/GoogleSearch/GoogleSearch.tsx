@@ -99,12 +99,14 @@ const GoogleSearch = () => {
                             const imageSrc = item.pagemap?.cse_image?.[0]?.src || '';
                             const cleanedImageSrc = cleanImageUrl(imageSrc);
                             const matchedProduct = productList.find(p => cleanImageUrl(p.image) === cleanedImageSrc);
-                            
+                            const isMatch = Boolean(matchedProduct);
+
                             return (
                                 <div 
                                     key={index} 
                                     className={classes.resultCard}
-                                    onClick={() => matchedProduct && setSelectedProductId(matchedProduct.id)}    
+                                    onClick={() => isMatch && setSelectedProductId(matchedProduct!.id!)}
+                                    style={{ cursor: isMatch ? 'pointer' : 'not-allowed' }}
                                 >
                                     <section className={classes.thumbnailSection}>
                                         {item.pagemap?.cse_thumbnail?.[0]?.src ? (
@@ -127,15 +129,13 @@ const GoogleSearch = () => {
                                     <section className={classes.resultContent}>
                                         <h3 className={classes.resultHeading}>{item.title}</h3>
                                         <p className={classes.resultSnippet}>{item.snippet}</p>
-                                        <a
-                                            href={item.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={classes.resultLink}
-                                            onClick={e => e.stopPropagation()}
-                                        >
-                                            To Product →
-                                        </a>
+                                        {isMatch ? (
+                                            <span className={classes.resultLink}>View Product →</span>
+                                        ) : (
+                                            <span className={classes.resultLink} style={{ opacity: 0.4 }}>
+                                                No match found
+                                            </span>
+                                        )}
                                     </section>
                                 </div>
                             );
