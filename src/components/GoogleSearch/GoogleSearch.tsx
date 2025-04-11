@@ -154,12 +154,16 @@ const GoogleSearch = () => {
                 </>
             )}
 
-            {selectedProductId && (
+            {selectedProductId != null && (
+            <div className={classes.modalOverlay} onClick={() => setSelectedProductId(null)}>
+                <div className={classes.modalContent} onClick={(e) => e.stopPropagation()}>
                 <ProductInfo
-                    key={selectedProductId} 
-                    productID={selectedProductId} 
-                    onClose={() => setSelectedProductId(null)} 
+                    key={selectedProductId}
+                    productID={selectedProductId}
+                    onClose={() => setSelectedProductId(null)}
                 />
+                </div>
+            </div>
             )}
         </div>
     );
