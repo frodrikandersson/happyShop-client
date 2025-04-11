@@ -1,7 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import classes from './GoogleSearch.module.css';
 import { useSearch } from '../../hooks/useSearch';
 import { IGoogleSearchItem } from '../../models/IGoogleSearch';
+import { useProducts } from '../../hooks/useProduct';
+import { IProducts } from '../../models/IProducts';
+import ProductInfo from '../ProductInfo/ProductInfo';
 
 const GoogleSearch = () => {
     const [searchText, setSearchText] = useState<string>('');
@@ -11,8 +14,15 @@ const GoogleSearch = () => {
     const [totalResults, setTotalResults] = useState<number>(0);
     const [startIndex, setStartIndex] = useState<number>(1);
     const [lastSearchTerm, setLastSearchTerm] = useState<string>('');
+    const [productList, setProductList ] = useState<IProducts[]>([]);
+    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
     const { handleGetSearch } = useSearch();
+    const { handleShowProducts } = useProducts();
+
+    useEffect(() => {
+        handleShowProducts().then(setProductList).catch(console.error);
+    }, []);
 
     const handleSearch = async (e?: FormEvent, newStartIndex: number = 1) => {
         if (e) e.preventDefault();
@@ -34,7 +44,10 @@ const GoogleSearch = () => {
     const closeResults = () => {
         setItems(null);
         setIsSearching(false);
+        setSelectedProductId(null);
     }
+
+    const cleanImageUrl = (url: string) => url.split('?')[0];
 
     return (
         <div className={classes.wrapper}>
@@ -82,42 +95,61 @@ const GoogleSearch = () => {
                                 </div>
                             )}
                         </div>
-                        {items.map((item, index) => (
-                            <div key={index} className={classes.resultCard}>
-                                <section className={classes.thumbnailSection}>
-                                    {item.pagemap?.cse_thumbnail?.[0]?.src ? (
-                                        <img
-                                            src={item.pagemap.cse_thumbnail[0].src}
-                                            alt="Thumbnail"
-                                            className={classes.thumbnail}
-                                        />
-                                    ) : item.pagemap?.cse_image?.[0]?.src ? (
-                                        <img
-                                            src={item.pagemap.cse_image[0].src}
-                                            alt="Placeholder"
-                                            className={classes.thumbnail}
-                                        />
-                                    ) : (
-                                        <div className={classes.noImage}>No image</div>
-                                    )}
-                                </section>
+                        {items.map((item, index) => {
+                            const imageSrc = item.pagemap?.cse_image?.[0]?.src || '';
+                            const cleanedImageSrc = cleanImageUrl(imageSrc);
+                            const matchedProduct = productList.find(p => cleanImageUrl(p.image) === cleanedImageSrc);
+                            
+                            return (
+                                <div 
+                                    key={index} 
+                                    className={classes.resultCard}
+                                    onClick={() => matchedProduct && setSelectedProductId(matchedProduct.id)}    
+                                >
+                                    <section className={classes.thumbnailSection}>
+                                        {item.pagemap?.cse_thumbnail?.[0]?.src ? (
+                                            <img
+                                                src={item.pagemap.cse_thumbnail[0].src}
+                                                alt="Thumbnail"
+                                                className={classes.thumbnail}
+                                            />
+                                        ) : imageSrc ? (
+                                            <img
+                                                src={imageSrc}
+                                                alt="Placeholder"
+                                                className={classes.thumbnail}
+                                            />
+                                        ) : (
+                                            <div className={classes.noImage}>No image</div>
+                                        )}
+                                    </section>
 
-                                <section className={classes.resultContent}>
-                                    <h3 className={classes.resultHeading}>{item.title}</h3>
-                                    <p className={classes.resultSnippet}>{item.snippet}</p>
-                                    <a
-                                        href={item.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={classes.resultLink}
-                                    >
-                                        To Product →
-                                    </a>
-                                </section>
-                            </div>
-                        ))}
+                                    <section className={classes.resultContent}>
+                                        <h3 className={classes.resultHeading}>{item.title}</h3>
+                                        <p className={classes.resultSnippet}>{item.snippet}</p>
+                                        <a
+                                            href={item.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={classes.resultLink}
+                                            onClick={e => e.stopPropagation()}
+                                        >
+                                            To Product →
+                                        </a>
+                                    </section>
+                                </div>
+                            );
+                        })}
                     </div>
                 </>
+            )}
+
+            {selectedProductId && (
+                <ProductInfo
+                    key={selectedProductId} 
+                    productID={selectedProductId} 
+                    onClose={() => setSelectedProductId(null)} 
+                />
             )}
         </div>
     );
